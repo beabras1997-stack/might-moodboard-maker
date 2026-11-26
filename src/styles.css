@@ -86,6 +86,7 @@
   --char: oklch(0.48 0.17 320);
   --char-soft: oklch(0.93 0.04 320);
   --sun: oklch(0.76 0.13 80);
+  --gradient-card: linear-gradient(170deg, oklch(0.52 0.16 258), oklch(0.36 0.14 262));
   --ring: oklch(0.145 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);

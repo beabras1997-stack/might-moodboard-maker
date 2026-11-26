@@ -54,23 +54,24 @@ function CardPage() {
 
   return (
     <Shell step="4 · MighT Card" title="O teu MighT Card" intro="Agora já te podes apresentar ao mundo, falando do teu talento mais do que da tua experiência.">
-      <div ref={ref} className="relative overflow-hidden rounded-[2rem] bg-primary p-6 text-primary-foreground">
-        <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-pers opacity-80" />
-        <div className="absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-power opacity-80" />
-        <div className="absolute right-6 bottom-24 h-16 w-16 rounded-full bg-sun opacity-90" />
-        <div className="relative flex items-center justify-between">
-          <Logo />
-          <span className="rounded-full bg-primary-foreground/15 px-3 py-1 text-[11px] font-semibold">{unlocked ? `All MighT · ${accepted.length} vozes` : "Self MighT"}</span>
+      <div ref={ref} className="relative mx-auto w-full max-w-[22rem] overflow-hidden rounded-[1.75rem] p-6 text-primary-foreground" style={{ background: "var(--gradient-card)" }}>
+        <div className="flex items-start justify-between">
+          <Logo light className="h-5" />
+          <Avatar i={s.avatar} className="h-9 w-9 opacity-70 brightness-0 invert" />
         </div>
-        <Avatar i={s.avatar} className="relative mx-auto mt-4 h-48 w-48" />
-        <p className="relative mt-4 text-center text-xl font-extrabold leading-snug">{tagline(top)}</p>
-        <div className="relative mt-5 grid grid-cols-3 gap-2">
+        <Avatar i={s.avatar} className="mx-auto mt-2 h-56 w-56 drop-shadow-2xl" />
+        <p className="mt-3 text-center text-3xl font-extrabold tracking-tight">{s.name || "O teu nome"}</p>
+        <div className="mt-5 flex items-center justify-around border-y border-primary-foreground/25 py-3 text-sm font-medium">
           {DIMS.map((d) => (
-            <div key={d.key} className={`rounded-2xl p-2.5 text-center ${d.key === "pers" ? "bg-pers" : d.key === "power" ? "bg-power" : "bg-char"}`}>
-              <p className="text-[10px] font-semibold uppercase opacity-80">{d.label}</p>
-              <p className="text-sm font-extrabold">{top[d.key]}</p>
-            </div>
+            <span key={d.key} className="flex items-center gap-1.5">
+              <span className={`h-2.5 w-2.5 rounded-full ${d.key === "pers" ? "bg-pers" : d.key === "power" ? "bg-sun" : "bg-char"}`} />
+              {top[d.key]}
+            </span>
           ))}
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-foreground/20 text-xs font-bold">{unlocked ? accepted.length : "S"}</span>
+          <p className="text-right text-sm leading-snug opacity-90">{tagline(top)}</p>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2">

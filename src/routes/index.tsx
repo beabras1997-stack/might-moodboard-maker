@@ -20,9 +20,10 @@ function SelfPage() {
   const s = useStore();
   const [pick, setPick] = useState<Partial<Record<Dim, string>>>({});
   const [avatar, setAvatar] = useState(0);
-  useEffect(() => { if (s.self) setPick(s.self); setAvatar(s.avatar); }, [s.self, s.avatar]);
-  const done = !!(pick.pers && pick.power && pick.char);
-  const saved = s.self && s.self.pers === pick.pers && s.self.power === pick.power && s.self.char === pick.char && s.avatar === avatar;
+  const [name, setName] = useState("");
+  useEffect(() => { if (s.self) setPick(s.self); setAvatar(s.avatar); setName(s.name); }, [s.self, s.avatar, s.name]);
+  const done = !!(pick.pers && pick.power && pick.char && name.trim());
+  const saved = s.self && s.self.pers === pick.pers && s.self.power === pick.power && s.self.char === pick.char && s.avatar === avatar && s.name === name;
 
   return (
     <Shell step="1 · Self MighT" title="Faz o teu MighT" intro="Pensa nas 3 palavras que melhor te retratam: a tua personalidade, o teu talento e o teu carácter.">
@@ -39,6 +40,11 @@ function SelfPage() {
         </p>
       </Card>
 
+      <section>
+        <h2 className="text-sm font-bold uppercase tracking-wide text-muted-foreground">O teu nome</h2>
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ex.: Tiago Forjaz" className="mt-2 w-full rounded-2xl border bg-card px-4 py-3 font-semibold outline-none focus:ring-2 focus:ring-ring" />
+      </section>
+
       {DIMS.map(({ key, label }) => (
         <section key={key}>
           <h2 className={`text-sm font-bold uppercase tracking-wide ${dimText[key]}`}>{label} <span className="font-medium normal-case text-muted-foreground">— {HINTS[key]}</span></h2>
@@ -51,7 +57,7 @@ function SelfPage() {
       ))}
 
       <Btn disabled={!done || !!saved} onClick={() => {
-        setState((st) => ({ ...st, self: pick as never, avatar }));
+        setState((st) => ({ ...st, self: pick as never, avatar, name: name.trim() }));
         toast.success("Boa! Já conseguiste!", { description: "Não seria bestial descobrires o que os outros vêem em ti?" });
       }}>{saved ? "Self MighT guardado ✓" : "Guardar o meu Self MighT"}</Btn>
       {s.self && <NextLink to="/enviar">Manda e pede MighTs</NextLink>}

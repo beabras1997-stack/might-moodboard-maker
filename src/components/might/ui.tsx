@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Sparkles, Send, Layers, IdCard, Users, Compass } from "lucide-react";
 import type { Dim } from "@/lib/might/data";
 import { cn } from "@/lib/utils";
+import logoUrl from "@/assets/logo.svg";
 
 const NAV = [
   { to: "/", label: "O meu", icon: Sparkles },
@@ -17,12 +18,8 @@ export const dimBg: Record<Dim, string> = { pers: "bg-pers text-primary-foregrou
 export const dimSoft: Record<Dim, string> = { pers: "bg-pers-soft text-pers", power: "bg-power-soft text-power", char: "bg-char-soft text-char" };
 export const dimText: Record<Dim, string> = { pers: "text-pers", power: "text-power", char: "text-char" };
 
-export function Logo() {
-  return (
-    <span className="text-2xl font-extrabold tracking-tight">
-      Migh<span className="text-pers">T</span>
-    </span>
-  );
+export function Logo({ light, className }: { light?: boolean; className?: string }) {
+  return <img src={logoUrl} alt="MighT" className={cn("h-7 w-auto", light && "brightness-0 invert", className)} />;
 }
 
 export function Shell({ step, title, intro, children }: { step: string; title: string; intro?: string; children: React.ReactNode }) {

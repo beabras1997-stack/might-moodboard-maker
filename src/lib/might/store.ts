@@ -8,6 +8,7 @@ export interface Request { id: string; to: string; circle: string; answered: boo
 export interface State {
   self: Triple | null;
   avatar: number;
+  name: string;
   received: Received[];
   sent: Sent[];
   requests: Request[];
@@ -17,6 +18,7 @@ const KEY = "might-state-v1";
 export const initialState = (): State => ({
   self: null,
   avatar: 0,
+  name: "",
   received: [
     { id: "r1", from: "ana", circle: "Trabalho", tags: { pers: "Criativa", power: "Comunicar", char: "Honesta" }, status: "accepted" },
     { id: "r2", from: "joao", circle: "Amigos", tags: { pers: "Divertida", power: "Inspirar", char: "Leal" }, status: "accepted" },
