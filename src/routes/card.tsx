@@ -58,7 +58,7 @@ function CardPage() {
         <div className="flex items-start justify-between">
           <Logo light className="h-5" />
         </div>
-        <MightFigure tags={top} className="mx-auto mt-2 h-60 w-60 drop-shadow-2xl" />
+        <MightFigure tags={s.self ?? top} className="mx-auto mt-2 h-60 w-60 drop-shadow-2xl" />
         <p className="mt-3 text-center text-3xl font-extrabold tracking-tight">{s.name || "O teu nome"}</p>
         <div className="mt-5 flex items-center justify-around border-y border-primary-foreground/25 py-3 text-sm font-medium">
           {DIMS.map((d) => (

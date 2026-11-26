@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Lock } from "lucide-react";
 import { Shell, Card, Tag, Btn, NextLink, dimBg, dimText } from "@/components/might/ui";
 import { Avatar } from "@/components/might/Avatar";
+import { MightFigure } from "@/components/might/MightFigure";
 import { DIMS, PEOPLE } from "@/lib/might/data";
 import { aggregate, UNLOCK } from "@/lib/might/logic";
 import { setState, useStore, type Status } from "@/lib/might/store";
@@ -25,6 +26,16 @@ function AllPage() {
 
   return (
     <Shell step="3 · All MighT" title="O teu All MighT" intro="O resultado agregado das palavras que recebeste de quem te conhece.">
+      {s.self && (
+        <Card className="flex items-center gap-4 bg-gradient-to-b from-secondary to-card">
+          <MightFigure tags={s.self} className="h-32 w-32 shrink-0" />
+          <div>
+            <p className="text-xs font-bold uppercase text-muted-foreground">O teu MighT</p>
+            <p className="text-xl font-extrabold">{s.name || "Tu"}</p>
+            <p className="text-sm text-muted-foreground">Cabeça {s.self.pers} · Braços {s.self.power} · Mãos {s.self.char}</p>
+          </div>
+        </Card>
+      )}
       <Card className="bg-primary text-primary-foreground">
         <div className="flex items-center justify-between">
           <p className="font-bold">{unlocked ? "All MighT desbloqueado 🎉" : `Faltam ${UNLOCK - accepted.length} MighTs`}</p>
