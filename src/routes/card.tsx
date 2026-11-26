@@ -4,7 +4,7 @@ import { toPng } from "html-to-image";
 import { toast } from "sonner";
 import { Download, Share2 } from "lucide-react";
 import { Shell, Btn, NextLink, Logo } from "@/components/might/ui";
-import { Avatar } from "@/components/might/Avatar";
+import { MightFigure } from "@/components/might/MightFigure";
 import { DIMS, tagline, type Triple } from "@/lib/might/data";
 import { aggregate, UNLOCK } from "@/lib/might/logic";
 import { useStore } from "@/lib/might/store";
@@ -57,9 +57,8 @@ function CardPage() {
       <div ref={ref} className="relative mx-auto w-full max-w-[22rem] overflow-hidden rounded-[1.75rem] p-6 text-primary-foreground" style={{ background: "var(--gradient-card)" }}>
         <div className="flex items-start justify-between">
           <Logo light className="h-5" />
-          <Avatar i={s.avatar} className="h-9 w-9 opacity-70 brightness-0 invert" />
         </div>
-        <Avatar i={s.avatar} className="mx-auto mt-2 h-56 w-56 drop-shadow-2xl" />
+        <MightFigure tags={top} className="mx-auto mt-2 h-60 w-60 drop-shadow-2xl" />
         <p className="mt-3 text-center text-3xl font-extrabold tracking-tight">{s.name || "O teu nome"}</p>
         <div className="mt-5 flex items-center justify-around border-y border-primary-foreground/25 py-3 text-sm font-medium">
           {DIMS.map((d) => (

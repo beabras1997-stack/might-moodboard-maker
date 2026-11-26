@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Shell, Card, Tag, Btn, NextLink, dimText } from "@/components/might/ui";
-import { Avatar, AVATARS } from "@/components/might/Avatar";
+import { MightFigure } from "@/components/might/MightFigure";
+import { ARMS, HANDS, HEAD } from "@/lib/might/figure";
 import { DIMS, TAGS, tagline, type Dim } from "@/lib/might/data";
 import { setState, useStore } from "@/lib/might/store";
 import { meta } from "@/lib/might/meta";
@@ -14,6 +14,8 @@ export const Route = createFileRoute("/")({
   component: SelfPage,
 });
 
+const ZONE: Record<Dim, string> = { pers: "Cabeça", power: "Braços", char: "Mãos" };
+const DESC: Record<Dim, (t: string) => string> = { pers: (t) => HEAD[t]!.desc, power: (t) => ARMS[t]!.desc, char: (t) => HANDS[t]!.desc };
 const HINTS: Record<Dim, string> = { pers: "um adjetivo", power: "um verbo de ação", char: "um valor" };
 
 function SelfPage() {
@@ -28,12 +30,14 @@ function SelfPage() {
   return (
     <Shell step="1 · Self MighT" title="Faz o teu MighT" intro="Pensa nas 3 palavras que melhor te retratam: a tua personalidade, o teu talento e o teu carácter.">
       <Card className="flex flex-col items-center bg-gradient-to-b from-secondary to-card">
-        <div className="flex w-full items-center justify-between">
-          <button aria-label="Figura anterior" onClick={() => setAvatar((avatar + AVATARS.length - 1) % AVATARS.length)} className="rounded-full bg-card p-2 shadow"><ChevronLeft /></button>
-          <motion.div key={avatar} initial={{ scale: 0.8, rotate: -6, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }}>
-            <Avatar i={avatar} className="h-44 w-44" />
-          </motion.div>
-          <button aria-label="Figura seguinte" onClick={() => setAvatar((avatar + 1) % AVATARS.length)} className="rounded-full bg-card p-2 shadow"><ChevronRight /></button>
+        <MightFigure tags={pick} className="h-64 w-64" />
+        <div className="mt-2 grid w-full grid-cols-3 gap-2 text-center text-[11px]">
+          {DIMS.map(({ key }) => (
+            <div key={key} className="rounded-2xl bg-card p-2">
+              <p className={`font-bold uppercase ${dimText[key]}`}>{ZONE[key]}</p>
+              <p className="leading-tight text-muted-foreground">{pick[key] ? DESC[key](pick[key]!) : "Por escolher"}</p>
+            </div>
+          ))}
         </div>
         <p className="mt-3 min-h-12 text-center text-lg font-bold leading-snug">
           {done ? tagline(pick as never) : "A tua tagline aparece aqui ✨"}
@@ -47,7 +51,7 @@ function SelfPage() {
 
       {DIMS.map(({ key, label }) => (
         <section key={key}>
-          <h2 className={`text-sm font-bold uppercase tracking-wide ${dimText[key]}`}>{label} <span className="font-medium normal-case text-muted-foreground">— {HINTS[key]}</span></h2>
+          <h2 className={`text-sm font-bold uppercase tracking-wide ${dimText[key]}`}>{label} <span className="font-medium normal-case text-muted-foreground">· {ZONE[key].toLowerCase()} — {HINTS[key]}</span></h2>
           <div className="mt-2 flex flex-wrap gap-2">
             {TAGS[key].map((t) => (
               <Tag key={t} dim={key} active={pick[key] === t} onClick={() => setPick({ ...pick, [key]: t })}>{t}</Tag>
