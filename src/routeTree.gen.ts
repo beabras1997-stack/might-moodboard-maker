@@ -10,86 +10,84 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedBoardsBoardIdRouteImport } from './routes/_authenticated/boards.$boardId'
+import { Route as AllRouteImport } from './routes/all'
+import { Route as CardRouteImport } from './routes/card'
+import { Route as DescobrirRouteImport } from './routes/descobrir'
+import { Route as EnviarRouteImport } from './routes/enviar'
+import { Route as FuncoesRouteImport } from './routes/funcoes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+const AllRoute = AllRouteImport.update({
+  id: '/all',
+  path: '/all',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const CardRoute = CardRouteImport.update({
+  id: '/card',
+  path: '/card',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const DescobrirRoute = DescobrirRouteImport.update({
+  id: '/descobrir',
+  path: '/descobrir',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthenticatedRoute,
+const EnviarRoute = EnviarRouteImport.update({
+  id: '/enviar',
+  path: '/enviar',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedBoardsBoardIdRoute =
-  AuthenticatedBoardsBoardIdRouteImport.update({
-    id: '/boards/$boardId',
-    path: '/boards/$boardId',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
+const FuncoesRoute = FuncoesRouteImport.update({
+  id: '/funcoes',
+  path: '/funcoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
-  '/dashboard': typeof AuthenticatedDashboardRoute
-  '/boards/$boardId': typeof AuthenticatedBoardsBoardIdRoute
+  '/all': typeof AllRoute
+  '/card': typeof CardRoute
+  '/descobrir': typeof DescobrirRoute
+  '/enviar': typeof EnviarRoute
+  '/funcoes': typeof FuncoesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
-  '/dashboard': typeof AuthenticatedDashboardRoute
-  '/boards/$boardId': typeof AuthenticatedBoardsBoardIdRoute
+  '/all': typeof AllRoute
+  '/card': typeof CardRoute
+  '/descobrir': typeof DescobrirRoute
+  '/enviar': typeof EnviarRoute
+  '/funcoes': typeof FuncoesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/signup': typeof SignupRoute
-  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/boards/$boardId': typeof AuthenticatedBoardsBoardIdRoute
+  '/all': typeof AllRoute
+  '/card': typeof CardRoute
+  '/descobrir': typeof DescobrirRoute
+  '/enviar': typeof EnviarRoute
+  '/funcoes': typeof FuncoesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/dashboard' | '/boards/$boardId'
+  fullPaths: '/' | '/all' | '/card' | '/descobrir' | '/enviar' | '/funcoes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/dashboard' | '/boards/$boardId'
+  to: '/' | '/all' | '/card' | '/descobrir' | '/enviar' | '/funcoes'
   id:
-    | '__root__'
-    | '/'
-    | '/_authenticated'
-    | '/login'
-    | '/signup'
-    | '/_authenticated/dashboard'
-    | '/_authenticated/boards/$boardId'
+    '__root__' | '/' | '/all' | '/card' | '/descobrir' | '/enviar' | '/funcoes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  SignupRoute: typeof SignupRoute
+  AllRoute: typeof AllRoute
+  CardRoute: typeof CardRoute
+  DescobrirRoute: typeof DescobrirRoute
+  EnviarRoute: typeof EnviarRoute
+  FuncoesRoute: typeof FuncoesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -101,63 +99,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
+    '/all': {
+      id: '/all'
+      path: '/all'
+      fullPath: '/all'
+      preLoaderRoute: typeof AllRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/card': {
+      id: '/card'
+      path: '/card'
+      fullPath: '/card'
+      preLoaderRoute: typeof CardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
+    '/descobrir': {
+      id: '/descobrir'
+      path: '/descobrir'
+      fullPath: '/descobrir'
+      preLoaderRoute: typeof DescobrirRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRoute
+    '/enviar': {
+      id: '/enviar'
+      path: '/enviar'
+      fullPath: '/enviar'
+      preLoaderRoute: typeof EnviarRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/boards/$boardId': {
-      id: '/_authenticated/boards/$boardId'
-      path: '/boards/$boardId'
-      fullPath: '/boards/$boardId'
-      preLoaderRoute: typeof AuthenticatedBoardsBoardIdRouteImport
-      parentRoute: typeof AuthenticatedRoute
+    '/funcoes': {
+      id: '/funcoes'
+      path: '/funcoes'
+      fullPath: '/funcoes'
+      preLoaderRoute: typeof FuncoesRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface AuthenticatedRouteChildren {
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedBoardsBoardIdRoute: typeof AuthenticatedBoardsBoardIdRoute
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedBoardsBoardIdRoute: AuthenticatedBoardsBoardIdRoute,
-}
-
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
-  LoginRoute: LoginRoute,
-  SignupRoute: SignupRoute,
+  AllRoute: AllRoute,
+  CardRoute: CardRoute,
+  DescobrirRoute: DescobrirRoute,
+  EnviarRoute: EnviarRoute,
+  FuncoesRoute: FuncoesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
